@@ -1,9 +1,17 @@
 import Link from "next/link";
-import { useState } from "react";
-import { FiSearch, FiSun, FiMenu, FiX } from "react-icons/fi";
+import { useState, useEffect} from "react";
+import { useTheme } from 'next-themes';
+import { FiSearch, FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
+
 
 function Header(props) {
+
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return null;
 
   return (
     <>
@@ -25,8 +33,8 @@ function Header(props) {
           <span>
             <FiSearch />
           </span>
-          <span>
-            <FiSun />
+          <span onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+             { theme === 'light' ? <FiMoon/> : <FiSun />}
           </span>
           <span
             className="inline-block sm:hidden"
@@ -39,7 +47,7 @@ function Header(props) {
 
       {/* Dropdown Menu */}
       {open && (
-        <div className="fixed inset-0 mx-[6%] my-16 z-10 bg-white overflow-y-auto drop-shadow-xl">
+        <div className="fixed inset-0 mx-[6%] my-16 z-10 bg-white dark:bg-slate-800 overflow-y-auto drop-shadow-xl">
           <nav className="h-full w-full flex flex-col space-y-8 text-center justify-center font-base font-semibold">
             <Link href="/blogs">
               <a>All Blogs</a>

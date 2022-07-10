@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Header from './Header';
 
+
 function Layout({title, description, keywords, children}) {
   return (
     <>
@@ -10,11 +11,14 @@ function Layout({title, description, keywords, children}) {
         <meta name="keywords" content={keywords} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      
+      <body className='dark:bg-slate-800'>
       <Header/>
       <main className="mx-[6%] my-7">
         {children}
       </main>
+      </body>
+     
     </>
   );
 }
